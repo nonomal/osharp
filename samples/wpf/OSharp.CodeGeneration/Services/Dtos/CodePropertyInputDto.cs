@@ -42,6 +42,11 @@ namespace OSharp.CodeGeneration.Services.Dtos
         public string TypeName { get; set; }
 
         /// <summary>
+        /// 获取或设置 是否在列表中列出
+        /// </summary>
+        public bool Listable { get; set; } = true;
+
+        /// <summary>
         /// 获取或设置 是否可更新
         /// </summary>
         public bool Updatable { get; set; }
@@ -77,9 +82,19 @@ namespace OSharp.CodeGeneration.Services.Dtos
         public bool IsNullable { get; set; }
 
         /// <summary>
+        /// 获取或设置 是否枚举类型
+        /// </summary>
+        public bool IsEnum { get; set; }
+
+        /// <summary>
         /// 获取或设置 是否只读
         /// </summary>
         public bool IsReadonly { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否隐藏
+        /// </summary>
+        public bool IsHide { get; set; }
 
         /// <summary>
         /// 获取或设置 是否虚属性

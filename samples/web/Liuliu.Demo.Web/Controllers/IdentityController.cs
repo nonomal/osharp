@@ -183,11 +183,6 @@ namespace Liuliu.Demo.Web.Controllers
 
             IUnitOfWork unitOfWork = HttpContext.RequestServices.GetUnitOfWork(true);
             OperationResult<User> result = await _identityContract.Login(dto);
-#if NET5_0_OR_GREATER
-            await unitOfWork.CommitAsync();
-#else
-            unitOfWork.Commit();
-#endif
 
             if (!result.Succeeded)
             {
@@ -196,6 +191,7 @@ namespace Liuliu.Demo.Web.Controllers
 
             User user = result.Data;
             await _signInManager.SignInAsync(user, dto.Remember);
+            await unitOfWork.CommitAsync();
             return new AjaxResult("登录成功");
         }
 
@@ -225,11 +221,6 @@ namespace Liuliu.Demo.Web.Controllers
 
                 IUnitOfWork unitOfWork = HttpContext.RequestServices.GetUnitOfWork(true);
                 OperationResult<User> result = await _identityContract.Login(loginDto);
-#if NET5_0_OR_GREATER
-                await unitOfWork.CommitAsync();
-#else
-                unitOfWork.Commit();
-#endif
                 if (!result.Succeeded)
                 {
                     return result.ToAjaxResult();
@@ -237,7 +228,8 @@ namespace Liuliu.Demo.Web.Controllers
 
                 User user = result.Data;
                 JsonWebToken token = await CreateJwtToken(user, dto.ClientType);
-                return new AjaxResult("登录成功", AjaxResultType.Success, token);
+                await unitOfWork.CommitAsync();
+                return new AjaxResult<JsonWebToken>("登录成功", AjaxResultType.Success, token);
             }
 
             if (grantType == GrantType.RefreshToken)
@@ -340,11 +332,7 @@ namespace Liuliu.Demo.Web.Controllers
             loginInfo.RegisterIp = HttpContext.GetClientIp();
             IUnitOfWork unitOfWork = HttpContext.RequestServices.GetUnitOfWork(true);
             OperationResult<User> result = await _identityContract.LoginBind(loginInfo);
-#if NET5_0_OR_GREATER
             await unitOfWork.CommitAsync();
-#else
-            unitOfWork.Commit();
-#endif
             if (!result.Succeeded)
             {
                 return result.ToAjaxResult();
@@ -366,11 +354,7 @@ namespace Liuliu.Demo.Web.Controllers
             loginInfo.RegisterIp = HttpContext.GetClientIp();
             IUnitOfWork unitOfWork = HttpContext.RequestServices.GetUnitOfWork(true);
             OperationResult<User> result = await _identityContract.LoginOneKey(loginInfo.ProviderKey);
-#if NET5_0_OR_GREATER
             await unitOfWork.CommitAsync();
-#else
-            unitOfWork.Commit();
-#endif
 
             if (!result.Succeeded)
             {

@@ -44,6 +44,11 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string TypeName { get; set; }
 
         /// <summary>
+        /// 获取或设置 是否在列表中显示
+        /// </summary>
+        public bool Listable { get; set; } = true;
+
+        /// <summary>
         /// 获取或设置 是否可更新
         /// </summary>
         public bool Updatable { get; set; }
@@ -79,9 +84,19 @@ namespace OSharp.CodeGeneration.Services.Entities
         public bool IsNullable { get; set; }
 
         /// <summary>
+        /// 获取或设置 是否枚举类型
+        /// </summary>
+        public bool IsEnum { get; set; }
+
+        /// <summary>
         /// 获取或设置 是否只读
         /// </summary>
-        public bool IsReadonly { get; set; }
+        public bool IsReadonly { get; set; } = false;
+
+        /// <summary>
+        /// 获取或设置 是否隐藏
+        /// </summary>
+        public bool IsHide { get; set; }
 
         /// <summary>
         /// 获取或设置 是否虚属性
@@ -145,10 +160,20 @@ namespace OSharp.CodeGeneration.Services.Entities
         [JsonIgnore]
         public virtual CodeEntity Entity { get; set; }
 
-        public static CodeProperty GetProperty(string name, string display, Type type, bool input, bool output = true, bool filter = true, bool sort = true) => new CodeProperty()
+        public static CodeProperty GetProperty(string name, string display, Type type, bool input, bool output = true, bool filter = true, bool sort = true, bool update = true) => new CodeProperty()
         {
             Name = name, Display = display, TypeName = type.FullName, Filterable = filter, Sortable = sort, IsInputDto = input,
-            IsOutputDto = output
+            IsOutputDto = output, Updatable = update
         };
+
+        public bool IsString()
+        {
+            return TypeName != "System.String";
+        }
+
+        public bool IsValueType()
+        {
+            return Type.GetType(TypeName)?.IsValueType == true || IsEnum;
+        }
     }
 }

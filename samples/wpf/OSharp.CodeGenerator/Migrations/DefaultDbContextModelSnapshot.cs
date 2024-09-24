@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OSharp.Entity;
 
+#nullable disable
+
 namespace OSharp.CodeGenerator.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
@@ -13,8 +15,7 @@ namespace OSharp.CodeGenerator.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.1");
 
             modelBuilder.Entity("OSharp.Authorization.EntityInfos.EntityInfo", b =>
                 {
@@ -46,7 +47,7 @@ namespace OSharp.CodeGenerator.Migrations
                         .IsUnique()
                         .HasDatabaseName("ClassFullNameIndex");
 
-                    b.ToTable("Auth_EntityInfo");
+                    b.ToTable("Auth_EntityInfo", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.Authorization.Functions.Function", b =>
@@ -107,7 +108,7 @@ namespace OSharp.CodeGenerator.Migrations
                         .IsUnique()
                         .HasDatabaseName("AreaControllerActionIndex");
 
-                    b.ToTable("Auth_Function");
+                    b.ToTable("Auth_Function", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeEntity", b =>
@@ -181,7 +182,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("CodeGen_CodeEntity");
+                    b.ToTable("CodeGen_CodeEntity", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeForeign", b =>
@@ -218,7 +219,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("CodeGen_CodeForeign");
+                    b.ToTable("CodeGen_CodeForeign", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeModule", b =>
@@ -257,7 +258,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("CodeGen_CodeModule");
+                    b.ToTable("CodeGen_CodeModule", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProject", b =>
@@ -301,7 +302,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CodeGen_CodeProject");
+                    b.ToTable("CodeGen_CodeProject", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProjectTemplate", b =>
@@ -325,7 +326,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("CodeGen_CodeProjectTemplate");
+                    b.ToTable("CodeGen_CodeProjectTemplate", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProperty", b =>
@@ -353,7 +354,13 @@ namespace OSharp.CodeGenerator.Migrations
                     b.Property<bool>("Filterable")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsEnum")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsForeignKey")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsHide")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsInputDto")
@@ -378,6 +385,9 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsVirtual")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Listable")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("MaxLength")
@@ -412,7 +422,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("CodeGen_CodeProperty");
+                    b.ToTable("CodeGen_CodeProperty", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeTemplate", b =>
@@ -456,7 +466,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CodeGen_CodeTemplate");
+                    b.ToTable("CodeGen_CodeTemplate", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.Core.Systems.KeyValue", b =>
@@ -474,7 +484,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasMaxLength(2000)
+                        .HasMaxLength(512)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Order")
@@ -497,7 +507,7 @@ namespace OSharp.CodeGenerator.Migrations
                         .IsUnique()
                         .HasDatabaseName("KeyIndex");
 
-                    b.ToTable("Systems_KeyValue");
+                    b.ToTable("Systems_KeyValue", (string)null);
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeEntity", b =>

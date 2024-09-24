@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 //  <copyright file="AutoMapperPack.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2018 OSharp. All rights reserved.
 //  </copyright>
@@ -6,20 +6,6 @@
 //  <last-editor>郭明锋</last-editor>
 //  <last-date>2018-06-23 15:23</last-date>
 // -----------------------------------------------------------------------
-
-using System;
-using System.ComponentModel;
-using System.Linq;
-
-using AutoMapper;
-using AutoMapper.Configuration;
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
-
-using OSharp.Core.Packs;
-using OSharp.Mapping;
 
 using IMapper = OSharp.Mapping.IMapper;
 
@@ -57,7 +43,7 @@ namespace OSharp.AutoMapper
         public override void UsePack(IServiceProvider provider)
         {
             ILogger logger = provider.GetLogger<AutoMapperPack>();
-            MapperConfigurationExpression cfg = provider.GetService<MapperConfigurationExpression>();
+            MapperConfigurationExpression cfg = provider.GetRequiredService<MapperConfigurationExpression>();
             
             //获取已注册到IoC的所有Profile
             IMapTuple[] tuples = provider.GetServices<IMapTuple>().OrderBy(m => m.Order).ToArray();
@@ -69,9 +55,10 @@ namespace OSharp.AutoMapper
             }
 
             var configuration = new MapperConfiguration(cfg);
+            configuration.CompileMappings();
             IMapper mapper = new AutoMapperMapper(configuration);
             MapperExtensions.SetMapper(mapper);
-            logger.LogInformation($"初始化对象映射对象到 MapperExtensions：{mapper.GetType()}，共包含 {configuration.GetMappers().Count()} 个映射配对");
+            logger.LogInformation($"初始化对象映射对象到 MapperExtensions：{mapper.GetType()}");
             
             IsEnabled = true;
         }

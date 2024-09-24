@@ -1,6 +1,7 @@
-﻿<Project>
+<Project>
   <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>LiuliuSoft nnc</Authors>
     <Company>柳柳软件(liuliusoft)</Company>
@@ -23,7 +24,7 @@
     <NoWarn>1701;1702;1591;8002</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\build\icon.png" Pack="true" Visible="false" PackagePath=""/>

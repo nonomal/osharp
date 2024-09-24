@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <!--<Import Project="../../../build/public.props" />-->
   <Import Project="../../../build/version.props" />
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
@@ -14,15 +14,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-    <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
+    <PackageReference Include="AsmResolver.DotNet" Version="5.*" />
+    <PackageReference Include="MahApps.Metro" Version="2.*" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.*" />
+    <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Notifications.Wpf.Core" Version="1.3.2" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" PrivateAssets="All" />
+    <PackageReference Include="Notifications.Wpf.Core" Version="1.*" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.*" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

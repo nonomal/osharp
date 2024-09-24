@@ -1,69 +1,61 @@
 // -----------------------------------------------------------------------
-//  <copyright file="TypeMetadataHandler.cs" company="OSharp¿ªÔ´ÍÅ¶Ó">
+//  <copyright file="TypeMetadataHandler.cs" company="OSharpå¼€æºå›¢é˜Ÿ">
 //      Copyright (c) 2014-2018 OSharp. All rights reserved.
 //  </copyright>
 //  <site>http://www.osharp.org</site>
-//  <last-editor>¹ùÃ÷·æ</last-editor>
+//  <last-editor>éƒ­æ˜é”‹</last-editor>
 //  <last-date>2018-08-06 13:44</last-date>
 // -----------------------------------------------------------------------
 
-using System;
-using System.Linq;
+namespace OSharp.CodeGenerator;
 
-using OSharp.Entity;
-using OSharp.Reflection;
-
-
-namespace OSharp.CodeGenerator
+/// <summary>
+/// ç±»å‹å…ƒæ•°æ®å¤„ç†å™¨
+/// </summary>
+public class TypeMetadataHandler : ITypeMetadataHandler
 {
     /// <summary>
-    /// ÀàĞÍÔªÊı¾İ´¦ÀíÆ÷
+    /// è·å–å®ä½“ç±»çš„å…ƒæ•°æ®
     /// </summary>
-    public class TypeMetadataHandler : ITypeMetadataHandler
+    /// <returns>å…ƒæ•°æ®é›†åˆ</returns>
+    public TypeMetadata[] GetEntityTypeMetadatas()
     {
-        /// <summary>
-        /// »ñÈ¡ÊµÌåÀàµÄÔªÊı¾İ
-        /// </summary>
-        /// <returns>ÔªÊı¾İ¼¯ºÏ</returns>
-        public TypeMetadata[] GetEntityTypeMetadatas()
-        {
-            Type[] entityTypes = AssemblyManager.FindTypesByBase(typeof(IEntity<>)).Where(m => !m.HasAttribute<IgnoreGenTypeAttribute>()).ToArray();
-            return entityTypes.OrderBy(m => m.FullName).Select(m => new TypeMetadata(m)).ToArray();
-        }
+        Type[] entityTypes = AssemblyManager.FindTypesByBase(typeof(IEntity<>)).Where(m => !m.HasAttribute<IgnoreGenTypeAttribute>()).ToArray();
+        return entityTypes.OrderBy(m => m.FullName).Select(m => new TypeMetadata(m)).ToArray();
+    }
 
-        /// <summary>
-        /// »ñÈ¡ÊäÈëDTOÀàĞÍµÄÔªÊı¾İ
-        /// </summary>
-        /// <returns>ÔªÊı¾İ¼¯ºÏ</returns>
-        public TypeMetadata[] GetInputDtoMetadatas()
-        {
-            Type[] inputDtoTypes = AssemblyManager.FindTypesByBase(typeof(IInputDto<>)).Where(m => !m.HasAttribute<IgnoreGenTypeAttribute>())
-                .ToArray();
-            return inputDtoTypes.OrderBy(m => m.FullName).Select(m => new TypeMetadata(m)).ToArray();
-        }
+    /// <summary>
+    /// è·å–è¾“å…¥DTOç±»å‹çš„å…ƒæ•°æ®
+    /// </summary>
+    /// <returns>å…ƒæ•°æ®é›†åˆ</returns>
+    public TypeMetadata[] GetInputDtoMetadatas()
+    {
+        Type[] inputDtoTypes = AssemblyManager.FindTypesByBase(typeof(IInputDto<>)).Where(m => !m.HasAttribute<IgnoreGenTypeAttribute>())
+            .ToArray();
+        return inputDtoTypes.OrderBy(m => m.FullName).Select(m => new TypeMetadata(m)).ToArray();
+    }
 
-        /// <summary>
-        /// »ñÈ¡Êä³öDTOÀàĞÍµÄÔªÊı¾İ
-        /// </summary>
-        /// <returns>ÔªÊı¾İ¼¯ºÏ</returns>
-        public TypeMetadata[] GetOutputDtoMetadata()
-        {
-            Type[] outDtoTypes = AssemblyManager.FindTypesByBase(typeof(IOutputDto)).Where(m => !m.HasAttribute<IgnoreGenTypeAttribute>()).ToArray();
-            return outDtoTypes.OrderBy(m => m.FullName).Select(m => new TypeMetadata(m)).ToArray();
-        }
+    /// <summary>
+    /// è·å–è¾“å‡ºDTOç±»å‹çš„å…ƒæ•°æ®
+    /// </summary>
+    /// <returns>å…ƒæ•°æ®é›†åˆ</returns>
+    public TypeMetadata[] GetOutputDtoMetadata()
+    {
+        Type[] outDtoTypes = AssemblyManager.FindTypesByBase(typeof(IOutputDto)).Where(m => !m.HasAttribute<IgnoreGenTypeAttribute>()).ToArray();
+        return outDtoTypes.OrderBy(m => m.FullName).Select(m => new TypeMetadata(m)).ToArray();
+    }
 
-        /// <summary>
-        /// »ñÈ¡Ö¸¶¨ÀàĞÍµÄÔªÊı¾İ
-        /// </summary>
-        /// <param name="type">ÀàĞÍ</param>
-        /// <returns>ÔªÊı¾İ</returns>
-        public TypeMetadata GetTypeMetadata(Type type)
+    /// <summary>
+    /// è·å–æŒ‡å®šç±»å‹çš„å…ƒæ•°æ®
+    /// </summary>
+    /// <param name="type">ç±»å‹</param>
+    /// <returns>å…ƒæ•°æ®</returns>
+    public TypeMetadata GetTypeMetadata(Type type)
+    {
+        if (type == null)
         {
-            if (type == null)
-            {
-                return null;
-            }
-            return new TypeMetadata(type);
+            return null;
         }
+        return new TypeMetadata(type);
     }
 }

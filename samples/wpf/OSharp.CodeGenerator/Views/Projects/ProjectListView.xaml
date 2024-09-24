@@ -6,7 +6,6 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
   xmlns:s="https://github.com/canton7/Stylet"
-  xmlns:mahwin="http://metro.mahapps.com/winfx/xaml/simplechildwindow"
   xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Projects"
   mc:Ignorable="d"
@@ -15,7 +14,7 @@
   <GroupBox>
     <GroupBox.Header>
       <StackPanel Orientation="Horizontal">
-        <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
+        <TextBlock Foreground="White" FontSize="14">
             <icons:PackIconMaterial Kind="FormatListCheckbox" Width="12" Height="12"/> 项目列表
         </TextBlock>
         <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="5 2" ToolTip="刷新项目列表">
